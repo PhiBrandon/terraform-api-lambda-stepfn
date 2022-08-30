@@ -1,0 +1,20 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "example",
+      "version": "1.0"
+    },
+    "paths": {
+      "/path1": {
+        "post": {
+          "x-amazon-apigateway-integration": {
+            "type" : "aws_proxy",
+            "httpMethod" : "POST",
+            "uri" : "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${lambdaARN}/invocations",
+            "passthroughBehavior" : "when_no_templates",
+            "payloadFormatVersion" : "1.0"
+          }
+        }
+      }
+    }
+  }
