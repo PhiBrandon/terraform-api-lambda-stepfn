@@ -8,11 +8,20 @@
       "/path1": {
         "post": {
           "x-amazon-apigateway-integration": {
-            "type" : "aws_proxy",
+            "type" : "aws",
             "httpMethod" : "POST",
-            "uri" : "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/${lambdaARN}/invocations",
+            "uri" : "arn:aws:apigateway:us-east-1:states:action/StartSyncExecution/${stepfnARN}",
             "passthroughBehavior" : "when_no_templates",
-            "payloadFormatVersion" : "1.0"
+            "payloadFormatVersion" : "1.0",
+            "credentials": "${executionRoleARN}",
+            "responses": {
+              "2\\d{2}" : {
+                "statusCode": "200",
+                "responseTemplates": {
+                  "application/json": "#set ($root=$input.path('$'))"
+                }
+              }
+            }
           }
         }
       }
